@@ -320,7 +320,7 @@ Dashboard Content
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.95);
   position: absolute;
   right: 0;
   top: 0;
@@ -369,9 +369,6 @@ Dashboard Content
   margin-right: 0.25rem;
   font-weight: 600;
   color: var(--color-grey-0--);
-}
-.status-form-box label {
-  margin-right: 0.75rem;
 }
 .add-task-form-btn {
   margin-top: 1rem;

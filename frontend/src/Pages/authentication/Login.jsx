@@ -42,10 +42,6 @@ function Login() {
     }
   };
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
   return (
     <section className="form-container">
       <form className="login-form form-general" action="">
