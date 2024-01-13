@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { GlobalContext } from "../../../context/UserContext";
 import ProgressBar from "./ProgressBar";
 import AddTaskBox from "./AddTaskBox";
 import SingleTask from "./SingleTask";
+import axios from "axios";
+import { notify } from "../../../utils/notification";
 
 function DashboardContent() {
   const { user } = GlobalContext();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [tasks, setTask] = useState([]);
   const [date, setDate] = useState(new Date());
   const [showAddTaskBox, setShowAddTaskBox] = useState(false);
+
+  const fetchTask = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:4070/api/v1/tasks", {
+        withCredentials: true,
+      });
+      setTask(response.data.data);
+      console.log(response);
+    } catch (error) {
+      notify(error.response.data.message, "error");
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTask();
+  }, []);
+
+  console.log(tasks);
 
   const handleShowAddTask = () => {
     setShowAddTaskBox(true);

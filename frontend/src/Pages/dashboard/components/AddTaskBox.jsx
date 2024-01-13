@@ -7,18 +7,22 @@ function AddTaskBox({ handleHideAddTask }) {
   const [isLoading, setIsLoading] = useState(false);
   const [addTaskForm, setAddTaskForm] = useState({
     task: "",
-    taskPriority: "",
+    taskPriority: undefined,
   });
 
   const HandleCreateTask = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:4070/api/v1/tasks", {
-        task: addTaskForm.task,
-        taskPriority: addTaskForm.task,
-      });
-      // handleHideAddTask();
+      const response = await axios.post(
+        "http://localhost:4070/api/v1/tasks",
+        {
+          task: addTaskForm.task,
+          taskPriority: addTaskForm.taskPriority,
+        },
+        { withCredentials: true }
+      );
+      handleHideAddTask(e);
       console.log(response);
       notify("Task added successfully", "success");
       setIsLoading(false);
@@ -27,6 +31,7 @@ function AddTaskBox({ handleHideAddTask }) {
       notify(error.response.data.message, "error");
       setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleAddTaskValue = (e) => {
@@ -42,7 +47,10 @@ function AddTaskBox({ handleHideAddTask }) {
   return (
     <section className="add-task-box">
       <form className="add-task-form">
-        <button onClick={handleHideAddTask} className="add-task-form-close-btn">
+        <button
+          onClick={(e) => handleHideAddTask(e)}
+          className="add-task-form-close-btn"
+        >
           X
         </button>
         <div className="general-add-task-form-TD">
