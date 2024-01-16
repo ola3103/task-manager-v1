@@ -23,12 +23,10 @@ function AddTaskBox({ handleHideAddTask, fetchTask }) {
         { withCredentials: true }
       );
       handleHideAddTask(e);
-      console.log(response);
       notify("Task added successfully", "success");
       fetchTask();
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       notify(error.response.data.message, "error");
       setIsLoading(false);
     }

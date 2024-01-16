@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { notify } from "../../utils/notification";
-import Loader from "../dashboard/components/Loader";
 import { GlobalContext } from "../../context/UserContext";
 import { GlobalTaskContext } from "../../context/TaskContext";
 
@@ -31,15 +30,12 @@ function Login() {
         { email: loginForm.email, password: loginForm.password },
         { withCredentials: true }
       );
-      console.log(response);
       notify("Sign in successful", "success");
       navigate("/dashboard");
       setUser(response.data.user);
       fetchTask();
       setIsloading(false);
     } catch (error) {
-      console.log(error);
-      console.log(error.response.data.message);
       notify(error.response.data.message, "error");
       setIsloading(false);
     }

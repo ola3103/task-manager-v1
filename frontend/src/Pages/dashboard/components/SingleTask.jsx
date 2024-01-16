@@ -36,7 +36,6 @@ function SingleTask({ task, fetchTask }) {
       notify("Task deleted successfully", "success");
     } catch (error) {
       notify(error.response.data.message, "error");
-      console.log(error);
     }
   };
 

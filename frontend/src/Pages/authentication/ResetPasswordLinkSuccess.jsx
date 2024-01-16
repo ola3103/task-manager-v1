@@ -1,5 +1,3 @@
-import React from "react";
-
 function ResetPasswordLinkSuccess() {
   return (
     <section className="form-container">

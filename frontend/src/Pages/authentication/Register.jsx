@@ -27,11 +27,9 @@ function Register() {
         email: registerFormData.email,
         password: registerFormData.password,
       });
-      console.log(res);
       navigate("/check-email", { replace: true });
     } catch (error) {
       notify(error.response.data.message, "error");
-      console.log(error);
     }
   };
 

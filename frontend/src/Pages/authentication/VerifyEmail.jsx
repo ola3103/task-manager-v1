@@ -21,14 +21,12 @@ function VerifyEmail() {
         { email: queryParams.get("email"), token: queryParams.get("token") }
       );
 
-      console.log(response);
     } catch (error) {
       if (!queryParams.has("email") || !queryParams.has("token")) {
         navigate("/", { replace: true });
       }
       notify(error.response.data.message, "error");
       setError(true);
-      console.log(error);
     }
     setIsloading(false);
   };

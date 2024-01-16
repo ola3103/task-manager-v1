@@ -236,9 +236,7 @@ exports.forgotPassword = async (req, res) => {
     user.passwordResetToken = crypto.randomBytes(40).toString("hex");
     user.passwordResetTokenExpiresIn = Date.now() + 10 * 60 * 1000;
     await user.save({ validateBeforeSave: false });
-    const passwordResetLink = `${req.protocol}://${req.get(
-      "host"
-    )}/reset-password?token=${user.passwordResetToken}&email=${user.email}`;
+    const passwordResetLink = `${req.protocol}://localhost:5173/reset-password?token=${user.passwordResetToken}&email=${user.email}`;
     await sendResetPasswordLink({
       email: user.email,
       name: user.name,

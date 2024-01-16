@@ -9,6 +9,8 @@ import FullDashboardContent from "./Pages/dashboard/components/FullDashboardCont
 import VerifyEmail from "./Pages/authentication/VerifyEmail";
 import RegistrationSuccessful from "./Pages/authentication/RegistrationSuccessful";
 import ProtectedRoute from "./Pages/authentication/ProtectedRoute";
+import ResetPasswordLinkSuccess from "./Pages/authentication/ResetPasswordLinkSuccess";
+import ResetPassword from "./Pages/authentication/ResetPassword";
 
 function App() {
   return (
@@ -19,6 +21,11 @@ function App() {
         <Route path="/check-email" element={<RegistrationSuccessful />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/reset-password-sent"
+          element={<ResetPasswordLinkSuccess />}
+        />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<FullDashboardContent />} />
         </Route>

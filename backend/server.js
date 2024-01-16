@@ -32,3 +32,19 @@ mongoose
     app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))
   )
   .catch((err) => console.log(err));
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNCAUGHT REJECTION");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT Exception");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});

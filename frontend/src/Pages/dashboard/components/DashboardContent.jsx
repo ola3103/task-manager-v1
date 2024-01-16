@@ -93,7 +93,20 @@ function DashboardContent() {
           />
         </div>
       </div>
-      <div className="dashboard-side-three-all-tasks">{allTask}</div>
+      {tasks.length === 0 ? (
+        <div className="no-task-box">
+          <p className="no-task-text">You have no task</p>
+          <button
+            onClick={handleShowAddTask}
+            className="single-task-stats single-task-stats-btn no-task-btn"
+          >
+            <span className="single-task-stats-number">+</span>
+            <span className="single-task-stats-status">Add New Task</span>
+          </button>
+        </div>
+      ) : (
+        <div className="dashboard-side-three-all-tasks">{allTask}</div>
+      )}
     </section>
   );
 }

@@ -22,17 +22,15 @@ const UserProvider = ({ children }) => {
         }
       );
       setUser(response.data.user);
-      console.log(response);
     } catch (error) {
       notify(error.response.data.message, "error");
       navigate("/", { replace: true });
-      console.log(error);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
-    if (location.pathname !== "/") {
+    if (location.pathname === "/dashboard") {
       fetchUser();
     } else {
       setIsLoading(false);
@@ -49,7 +47,6 @@ const UserProvider = ({ children }) => {
           withCredentials: true,
         }
       );
-      console.log(response);
       setIsLoading(false);
     } catch (error) {
       notify(error.response.data.message, "error");

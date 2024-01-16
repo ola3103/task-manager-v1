@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { notify } from "../utils/notification";
 import axios from "axios";
 import Loader from "../Pages/dashboard/components/Loader";
-import { GlobalContext } from "./UserContext";
 
 const TaskContext = createContext();
 
@@ -27,7 +26,7 @@ const TaskProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (location.pathname !== "/") {
+    if (location.pathname === "/dashboard") {
       fetchTask();
     } else {
       setIsLoading(false);

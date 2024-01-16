@@ -28,7 +28,6 @@ function EditTaskBox({ setShowEditBox, task, fetchTask }) {
         },
         { withCredentials: true }
       );
-      console.log(response);
       fetchTask();
       notify("Task updated successfully", "success");
       handleHideEditTaskForm(e);
@@ -36,7 +35,6 @@ function EditTaskBox({ setShowEditBox, task, fetchTask }) {
     } catch (error) {
       notify(error.response.data.message, "error");
       setIsLoading(false);
-      console.log(error);
     }
   };
 

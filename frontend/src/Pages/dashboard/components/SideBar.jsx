@@ -21,10 +21,8 @@ function SideBar() {
         }
       );
       setTasks(response.data.data);
-      console.log(response);
     } catch (error) {
       notify(error.response.data.message, "error");
-      console.log(error);
     }
   };
 
@@ -38,10 +36,8 @@ function SideBar() {
         }
       );
       setTasks(response.data.data);
-      console.log(response);
     } catch (error) {
       notify(error.response.data.message, "error");
-      console.log(error);
     }
   };
 
