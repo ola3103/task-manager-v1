@@ -5,7 +5,6 @@ exports.createTask = async (req, res) => {
   const task = await Task.create({
     ...req.body,
     user: req.user.id,
-    taskCreatedAt: Date.now(),
   });
 
   res
@@ -13,7 +12,7 @@ exports.createTask = async (req, res) => {
     .json({ status: "success", msg: "task created successfully", data: task });
 };
 exports.getAllTask = async (req, res) => {
-  const tasks = await Task.find({ user: req.user.id });
+  const tasks = await Task.find({ ...req.query, user: req.user.id });
   if (!tasks) {
     throw new CustomError("No task for this user");
   }
@@ -29,24 +28,19 @@ exports.getSingleTask = async (req, res) => {
   res.status(200).json({ status: "success", data: task });
 };
 exports.updateTask = async (req, res) => {
-  const { task, isComplete, taskPriority } = req.body;
+  const { task, taskStatus, taskPriority } = req.body;
 
   const taskToBeUpdated = await Task.findOneAndUpdate(
     { _id: req.params.id, user: req.user.id },
-    { task, isComplete, taskPriority },
+    { task, taskStatus, taskPriority },
     { new: true, runValidators: true }
   );
   if (!taskToBeUpdated) {
     throw new CustomError("task cannot be found");
   }
 
-  if (taskToBeUpdated.isComplete === true) {
-    taskToBeUpdated.timeTaskCompleted = Date.now();
-    await taskToBeUpdated.save();
-  }
-
   res
-    .status(201)
+    .status(200)
     .json({ status: "success", msg: "update task", task: taskToBeUpdated });
 };
 

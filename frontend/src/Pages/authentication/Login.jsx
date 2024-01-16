@@ -4,12 +4,14 @@ import axios from "axios";
 import { notify } from "../../utils/notification";
 import Loader from "../dashboard/components/Loader";
 import { GlobalContext } from "../../context/UserContext";
+import { GlobalTaskContext } from "../../context/TaskContext";
 
 function Login() {
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [isLoading, setIsloading] = useState(false);
 
   const { setUser } = GlobalContext();
+  const { fetchTask } = GlobalTaskContext();
 
   const navigate = useNavigate();
 
@@ -33,6 +35,7 @@ function Login() {
       notify("Sign in successful", "success");
       navigate("/dashboard");
       setUser(response.data.user);
+      fetchTask();
       setIsloading(false);
     } catch (error) {
       console.log(error);

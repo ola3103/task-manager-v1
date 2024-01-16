@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { notify } from "../utils/notification";
 import Loader from "../Pages/dashboard/components/Loader";
@@ -11,6 +11,7 @@ const UserProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchUser = async () => {
     try {
@@ -24,20 +25,46 @@ const UserProvider = ({ children }) => {
       console.log(response);
     } catch (error) {
       notify(error.response.data.message, "error");
-      // navigate("/", { replace: true });
+      navigate("/", { replace: true });
+      console.log(error);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchUser();
+    if (location.pathname !== "/") {
+      fetchUser();
+    } else {
+      setIsLoading(false);
+    }
   }, []);
+
+  const handleLogoutUser = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await axios.delete(
+        "http://localhost:4070/api/v1/auth/logout",
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+      setIsLoading(false);
+    } catch (error) {
+      notify(error.response.data.message, "error");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+      navigate("/", { replace: true });
+    }
+  };
 
   if (isLoading) {
     return <Loader />;
   }
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, handleLogoutUser }}>
       {children}
     </UserContext.Provider>
   );

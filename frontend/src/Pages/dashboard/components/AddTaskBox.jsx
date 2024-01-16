@@ -3,7 +3,7 @@ import { useState } from "react";
 import { notify } from "../../../utils/notification";
 import Loader from "./Loader";
 
-function AddTaskBox({ handleHideAddTask }) {
+function AddTaskBox({ handleHideAddTask, fetchTask }) {
   const [isLoading, setIsLoading] = useState(false);
   const [addTaskForm, setAddTaskForm] = useState({
     task: "",
@@ -25,6 +25,7 @@ function AddTaskBox({ handleHideAddTask }) {
       handleHideAddTask(e);
       console.log(response);
       notify("Task added successfully", "success");
+      fetchTask();
       setIsLoading(false);
     } catch (error) {
       console.log(error);

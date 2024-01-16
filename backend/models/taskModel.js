@@ -6,23 +6,23 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: [true, "Task field cannot be empty"],
     },
-    isComplete: {
-      type: Boolean,
-      required: [true, "Task status cannot be empty"],
-      default: false,
+    taskStatus: {
+      type: String,
+      enum: ["pending", "completed"],
+      default: "pending",
+      required: true,
     },
     taskPriority: {
       type: String,
       enum: ["low", "medium", "high"],
       default: "medium",
+      required: true,
     },
-    taskCreatedAt: Date,
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "user",
       required: true,
     },
-    timeTaskCompleted: Date,
   },
   { timestamps: true }
 );

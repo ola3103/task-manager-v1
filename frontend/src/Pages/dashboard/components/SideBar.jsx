@@ -1,10 +1,54 @@
 import { MdLogout } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { FaList } from "react-icons/fa6";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { IoHourglassOutline } from "react-icons/io5";
+import { GlobalTaskContext } from "../../../context/TaskContext";
+import axios from "axios";
+import { notify } from "../../../utils/notification";
+import { GlobalContext } from "../../../context/UserContext";
 
 function SideBar() {
+  const { fetchTask, setTasks } = GlobalTaskContext();
+  const { handleLogoutUser } = GlobalContext();
+
+  const handleCompletedTask = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        "http://localhost:4070/api/v1/tasks?taskStatus=completed",
+        {
+          withCredentials: true,
+        }
+      );
+      setTasks(response.data.data);
+      console.log(response);
+    } catch (error) {
+      notify(error.response.data.message, "error");
+      console.log(error);
+    }
+  };
+
+  const handlePendingTask = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        "http://localhost:4070/api/v1/tasks?taskStatus=pending",
+        {
+          withCredentials: true,
+        }
+      );
+      setTasks(response.data.data);
+      console.log(response);
+    } catch (error) {
+      notify(error.response.data.message, "error");
+      console.log(error);
+    }
+  };
+
+  const handleAllTask = (e) => {
+    e.preventDefault();
+    fetchTask();
+  };
   return (
     <section className="sidebar">
       <a href="" className="logo">
@@ -12,7 +56,7 @@ function SideBar() {
       </a>
       <ul className="sidebar-task-status-box">
         <li className="sidebar-status-link">
-          <a href="">
+          <a href="" onClick={(e) => handleAllTask(e)}>
             <span className="sidebar-status-link-icon">
               <FaList />
             </span>
@@ -23,21 +67,25 @@ function SideBar() {
           <span className="sidebar-status-link-icon">
             <IoCheckmarkDone />
           </span>
-          <a href="">Completed Tasks</a>
+          <a href="" onClick={(e) => handleCompletedTask(e)}>
+            Completed Tasks
+          </a>
         </li>
         <li className="sidebar-status-link">
           <span className="sidebar-status-link-icon">
             <IoHourglassOutline />
           </span>
-          <a href="">Pending Task</a>
+          <a href="" onClick={(e) => handlePendingTask(e)}>
+            Pending Task
+          </a>
         </li>
       </ul>
 
-      <a href="" className="sidebar-profile">
-        <IoSettingsOutline />
-        <span>Settings</span>
-      </a>
-      <a href="" className="sidebar-logout-btn">
+      <a
+        href=""
+        onClick={(e) => handleLogoutUser(e)}
+        className="sidebar-logout-btn"
+      >
         <MdLogout />
         <span>logout</span>
       </a>
