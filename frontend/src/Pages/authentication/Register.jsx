@@ -49,6 +49,7 @@ function Register() {
           name="fullName"
           value={registerFormData.fullName}
           onChange={(e) => handleRegisterForm(e)}
+          autoComplete="off"
         />
         <input
           className="input-form-general"
@@ -57,6 +58,7 @@ function Register() {
           name="email"
           value={registerFormData.email}
           onChange={(e) => handleRegisterForm(e)}
+          autoComplete="off"
         />
         <input
           className="input-form-general"
@@ -65,6 +67,7 @@ function Register() {
           name="password"
           value={registerFormData.password}
           onChange={(e) => handleRegisterForm(e)}
+          autoComplete="off"
         />
         <button className="create-account-btn btn" onClick={handleRegisterUser}>
           Create Account

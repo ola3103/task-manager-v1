@@ -43,6 +43,7 @@ function ForgotPassword() {
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
           placeholder="Enter your email address"
+          autoComplete="off"
         />
         <button
           onClick={(e) => handleResetPassword(e)}

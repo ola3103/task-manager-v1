@@ -54,6 +54,7 @@ function Login() {
           value={loginForm.email}
           onChange={(e) => handleFormChange(e)}
           placeholder="Email address"
+          autoComplete="off"
         />
         <input
           className="login-form-password input-form-general"
